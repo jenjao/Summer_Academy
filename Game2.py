@@ -189,7 +189,10 @@ while running:
             close window button or use any action to close the window
         '''
     
-    
+        '''
+            here youll see a blank screen and it won't disappear
+            until you press the esc key or trigger a quit event
+        '''
     
     
     
