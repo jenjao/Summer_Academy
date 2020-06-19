@@ -1,38 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jun 16 11:14:43 2020
+Created on Tue Jun 16 12:07:16 2020
 
 @author: jenileejao
 """
 
-''' 
-    before writing code, its always good practice to have
-    some design in place
-    
-    lets design some basic gameplay:
-    - goal is to avoid obstacles
-        - player starts on left side of screen
-        - obstacles enter randomply from right
-            and move left in a straight line
-    - player can move left, right, up, down to avoid obstacles
-    - player cant move off screen
-    - game ends when player is hit or when user closes window
-    
-    here is some thing that wont be covered:
-        - no multiple lives
-        - no score keeping
-        - no player attack capabilities
-        - no advancing levels
-        - no boss characters
-'''
-
-'''
-    after importing, youll also need to initialize it
-    
-    this will allow pygame to connect its abstractions
-    to your specific hardware
-'''
 
 # import pygame module
 
@@ -49,22 +22,33 @@ from pygame.locals import (
     QUIT,
 )
 
+### ********************* INSERT THIS LATER WHEN IT SAYS TO INSERT
+
+'''
+    SKIP SKIP SKIP
+'''
+
+# define a player object by extending pygame.sprite.Sprite
+# the surface drawn on the screen is now an attribute of 'player'
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super(Player, self).__init__()
+        self.surf = pygame.Surface((75, 25))
+        self.surf.fill((255, 255, 255))
+        self.rect = self.surf.get_rect()
+
+
+############# SKIP ABOVE FIRST
+    '''
+        THEN ADD THE ONES WITH ###$$$$$$$$$$$$$$$
+    '''
+
+"""
+"""
+
 
 # initialize pygame
 pygame.init()
-
-'''
-    pygame library defines many things besides modules and classes
-    it also defines some local constants for things like
-    keystrokes, mouse movements, and display attributes
-    
-'''
-
-'''
-    now we need something to draw on
-    
-    so we create a screen
-'''
 
 
 # define constants for the screen width and height
@@ -76,93 +60,29 @@ SCREEN_HEIGHT = 600
 # size is determined by the constant SCREEN_WIDTH, SCREEN_HEIGHT
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-''' 
-    here you create the scrren to use by calling pygame.display.set_mode
-    and passing a tuple or list with desired width and height
-    
-    in this case, the window is 800x600
-    
-    this returns a surface which represents the inside dimension of 
-    the window and this is the portion of the window you can control
-'''
+
+#############$$$$$$$$$$$$ SKIP THIS FOR NOW UNTIL LATER AFTER
+''' SKIP SKIP SKIP '''
+
+# Instantiate player. right now, this is just a rectangle.
+player = Player()
 
 
 
 ### Setting Up the Game Loop
 
-''' every game from Pong to Fortnite uses a game loop to control gameplay
-    the game loop does 4 very important things:
-        - processes user input
-        - updates state of all game object
-        - updates the display and audio output
-        - maintains the speed of the game
-'''
-
-'''
-    every cycle of the game loop is called a frame
-    and the quicker you can do things each cycle,
-    the faster your game will run.
-    
-    frames will continue to occur until some condition to exit the game
-    is met. in this design, there are two conditions that end
-    the game loop:
-        - player collides with obstacle
-        - player closes window
-'''
-
-''' 
-    the first thing the game loop does is process user input 
-    to allow the player to move around the screen
-    
-    thus you need some way to capture and process a variety of input
-    so we do this by using the pygame event system
-'''
-
 
 ### Processing Events
 
-''' 
-    Key presses, mouse movements, and even joystick movements are some 
-    of the ways in which a user can provide input. 
-    All user input results in an event being generated. 
-    Events can happen at any time and often (but not always) 
-    originate outside the program. 
-    All events in pygame are placed in the event queue,
-    which can then be accessed and manipulated. 
-    Dealing with events is referred to as handling them, 
-    and the code to do so is called an event handler.
-
-    Every event in pygame has an event type associated with it.
-    For this game, the event types we'll focus on are keypresses 
-    and window closure. 
-    Keypress events have the event type KEYDOWN, 
-    and the window closure event has the type QUIT.
-    Different event types may also have other data associated with them. 
-    For example, the KEYDOWN event type also has a variable called key 
-    to indicate which key was pressed.
-
-    You access the list of all active events in the queue 
-    by calling pygame.event.get(). 
-    You then loop through this list, 
-    inspect each event type, and respond accordingly:
-'''
 
 # Variable to keep the main loop running
 running = True
 
-'''
-    sets up a control variable for the game loop
-    to exit the loop and the game, you set running = False
-'''
-
 
 # Main loop
 while running:
-    '''
-        starts the event handler, walking thru every event currently
-        in the even queue, if there are no events, 
-        then list is empty and handler wont do anything
-    '''
+    #pygame.event.wait()
+    
     # look at every event in the queue
     for event in pygame.event.get():
         
@@ -171,39 +91,224 @@ while running:
             #if esc is hit, stops the loop
             if event.key == K_ESCAPE:
                 running = False
-            '''
-             check if the current event.type is a KEYDOWN event
-             if it is, the program checks which key was pressed
-             by looking at the event.key attribute
-             
-             if the key is the esc key, indicated by K_ESCAPE,
-             then it exits the game loop by setting running to false
-             '''
-         
+            
         #if user clicks the window close button, stop loop
         elif event.type == QUIT:
             running = False
-        '''
-            does a similar check for the event type called QUIT
-            this event only occurs when the user clicks the 
-            close window button or use any action to close the window
-        '''
-    
-        '''
-            here youll see a blank screen and it won't disappear
-            until you press the esc key or trigger a quit event
-        '''
-    
-    
-    
-    
-    
 
 
 
+############### CONTINUATION ####################
+
+### Drawing on the Screen
+    '''
+        we drew on the screen using
+            - screen.fill() to fill the background
+            - pygame.draw.circle() to draw a circle
+            
+        now youll learn about a third way to draw to the screen
+        using a SURFACE
+        
+        Surface is a rectangular object on which you can draw
+        like a blank sheet of paper
+        the SCREEN object is a SURFACE and you can create
+        your own SURFACE objects separate from the display screen
+    
+        lets see how that works
+    '''
+    
+    #################$$$$$$$$$$$$$$$ CHANGE AFTER MAKING CLASS PLAYER
+    """
+        change screen to black (0, 0, 0)
+    """
+    
+    # fill the screen with white
+    #screen.fill((255, 255, 255))  #########$$$$$ CHANGE TO BLACK  
+    screen.fill((0, 0, 0))
+    
+    
+    ############# COMMENT LINES BETWEEN ####^^^^^^^^^
+    
+    """
+    # create a surface and pass in a tuple containing its length and width
+    surf = pygame.Surface((50, 50))
+    '''
+        new surface is created. this surface is 50 pixels wide
+        50 pixels tall and assigned to surf
+        
+        at this point, you treat it just like the screen
+    '''
+    
+    
+    # give the surface a color to separate it from the background
+    surf.fill((0, 0, 0))
+    rect = surf.get_rect()
+    '''
+        we fill the surface with black and we can also access
+        its underlying rect using .get_rect()
+        this is stored as rect for later use
+    '''
+    """
+    ### Using .blit() and .flip()
+    
+    '''
+        just creating a new surface is really not enough to see it on the screen
+        to do this, we need to blit the surface onto another surface
+        blit stands for block transfer and .blit() is how we copy
+        the contents of one surface to another
+        
+        we can only .blit from one surface to another but since
+        the screen is just another surface, its not a problem for this case
+    
+        heres how we draw surf on the screen
+    '''
+    
+    """
+    
+    # this line says "draw surf onto the screen at the center"
+    screen.blit(surf, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+    pygame.display.flip()
+    '''
+        .blit() call takes two arguments:
+            - the surface to draw
+            - location at which to draw it on the source surface
+        the coordinates (screenwidth and screenheight) tells the program
+        to place surf in the exact center of the screen but it doesnt
+        quite look that way
+            *** run *** 
+    '''
+    """
+    
+#pygame.quit()
+
+    '''
+        the reason why the image looks so off-center is that .blit() puts
+        the top-left corner of surf at the location given.
+        if you want surf to be centered, then youll have to do some math
+        to shift it up and to the left. 
+        
+        you can do this by subtracting the width and the height of surf
+        from the width and height of the screen, dividing each
+        by 2 to locate the center, and then passing those numbers
+        as arguments to screen.blit()
+    '''
+    
+    
+    ############^^^^^^^^^^^^^^^^^^ COMMENT AGAIN
+    '''
+    # put the center of surf at the center of the display
+    surf_center = (
+        (SCREEN_WIDTH - surf.get_width())/2,
+        (SCREEN_HEIGHT - surf.get_height())/2
+    )
+    
+    # Draw surf at the new coordinates
+    screen.blit(surf, surf_center)
+    pygame.display.flip()
+    '''
+    ########^^^^^^^^^^^^^^^^^^^^^^^
+    
+    '''
+        ***** RUN ******
+        ############ comment the pygame.display.flip() above to see both
+        squares, then comment first screen.blit ###################
+    '''
+    
+    '''
+        notice the call to pygame.display.flip() after the call
+        to blit(). this updates the entire screen with everything
+        that's been drawn since the last flip
+        
+        without the call to .flip, nothing will be shown
+    '''
+
+    ''' *********** RUN ************* '''
+
+#pygame.quit()
 
 
+### SPRITES
 
+    ''' 
+    in our design, the player starts on the left and the obstacles come 
+    from the right. we can represent all the obstacles with surface objects
+    to make drawing everything easier, but how do we know where to draw them?
+    
+    how do we know if an obstacle has collided with the player?
+    what happens when the obstacle flies off the screen?
+    what if we want to draw background images that also move?
+    what if we want our images to be animated?
+    
+    we can handle all these situation and more with SPRITES.
+    
+    in programming terms, sprite is a 2D representation of something on 
+    the screen. Essentially its a picture.
+    
+    pygame provides a sprite class, which is designed to hold one
+    or several graphical representations of any game object that we want
+    to display on the screen.
+    
+    to use it, we can create a new class that extends sprite.
+    
+    this will allow us to use its built-in methods
+
+    how will we use sprite objects with the current game to define the player?
+    
+    '''
+    
+################$$$$$$$$$$$$$$$ INSERT CODE BEFORE PYGAME.INIT
+    '''
+            class Player(pygame.sprite.Sprite):
+                def __init__(self):
+                super(Player, self).__init__()
+                self.surf = pygame.Surface((75, 25))
+                self.surf.fill((255, 255, 255))
+                self.rect = self.surf.get_rect()
+    '''
+    '''
+        we first define player by extending pygame.sprite.Sprite
+        then .__init__() uses .super() to call the .__init__() method 
+        for sprite.
+        
+        next, we define and initialize .surf to hold the image display,
+        which is currently a white box. 
+        
+        we also define and initialize .rect, which we'll use to draw
+        the player later. to use this new class, we need to create 
+        a new object and change the drawing code as well.
+    '''
+    
+##################$$$$$$$$$$$ INSERT AFTER screen = pygame.display.set
+    '''
+            # Instantiate player. right now, this is just a rectangle.
+            player = Player()
+    '''
+
+#############$$$$$$$$$$$$ then change screen.fill to black
+    
+    
+    
+#######$$$$$$$$$$$$ then comment all screen.blit and continue:
+
+
+    # draw player on screen
+    #screen.blit(player.surf, (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+    screen.blit(player.surf, player.rect)
+    
+    #update display
+    pygame.display.flip()
+
+    ###### then change (SCREEN_WIDTH/2, SCREEN_HEIGHT/2) to 
+                    # player.rect
+
+    ''' 
+        when we pass a rect to .blit, it uses the coordinates
+        of the top left corner to draw the surface.
+        
+        we'll use this later to make our player move
+    '''
+
+pygame.quit()
 
 
 
