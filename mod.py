@@ -15,12 +15,12 @@ Created on Tue Jun 16 09:26:05 2020
 
 import mymodule #this will import mymodule.py
 
-#print (mymodule.thing) 
+print (mymodule.thing) 
 
-#mymodule.someThing()
+mymodule.someThing()
 
-print(thing)
-someThing()
+#print(thing)
+#someThing()
 
 ''' so here we're accessing thing and someThing through the mymodule name
     this is the standard way to execute an imported module
